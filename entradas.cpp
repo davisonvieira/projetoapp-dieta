@@ -52,11 +52,34 @@ int main() {
     // Gasto calórico diário total (TDEE)
     float tdee = tmb * fator;
 
-    // Ajuste baseado no objetivo
+    // Déficit para emagrecimento
+    float calorias_dia = tdee;
+
     if (objetivo == "1" || objetivo == "emagrecer") {
-        tdee -= 500;
+        string intensidade;
+        cout << "\nQual a intensidade desejada para emagrecimento?" << endl;
+        cout << "1. Leve (250 kcal/dia)\n2. Moderado (500 kcal/dia)\n3. Agressivo (750 kcal/dia)" << endl;
+        cout << "Escolha (1/2/3): ";
+        cin >> intensidade;
+
+        int deficit = 0;
+        if (intensidade == "1")
+            deficit = 250;
+        else if (intensidade == "2")
+            deficit = 500;
+        else if (intensidade == "3")
+            deficit = 750;
+        else {
+            cout << "Intensidade invalida. Encerrando programa." << endl;
+            return 1;
+        }
+
+        calorias_dia = tdee - deficit;
+
+        cout << "\nSeu gasto calórico total (TDEE) é: " << tdee << " kcal/dia." << endl;
+        cout << "Com um déficit de " << deficit << " kcal, você deverá consumir: " << calorias_dia << " kcal/dia." << endl;
     } else if (objetivo == "3" || objetivo == "aumentar") {
-        tdee += 500;
+        calorias_dia += 500;
     } else if (objetivo != "2" && objetivo != "manter") {
         cout << "Objetivo invalido. Use 1, 2 ou 3." << endl;
         return 1;
@@ -79,10 +102,10 @@ int main() {
         classificacao = "Obesidade grau 2";
     else
         classificacao = "Obesidade grau 3";
-n
+
     // Resultados
-    cout << "\nSua necessidade calorica estimada e de aproximadamente: " << tdee << " calorias por dia.\n" << endl;
-    cout << "Seu IMC e: " << imc << " - " << classificacao << endl;
+    cout << "\nSeu IMC é: " << imc << " - " << classificacao << endl;
+    cout << "Calorias diárias recomendadas com base no objetivo: " << calorias_dia << " kcal/dia." << endl;
 
     // Pergunta sobre cronograma
     string resposta;
@@ -95,10 +118,9 @@ n
     }
 
     if (resposta == "sim") {
-        cout << "\nRecomendacao de cronograma vira aqui futuramente!" << endl;
-        // Adicionar sugestões de refeições/macros aqui
+        cout << "\nRecomendacao de cronograma virá aqui futuramente!" << endl;
     } else {
-        cout << "Tudo bem! Cuide da sua saude!" << endl;
+        cout << "\nTudo bem! Cuide da sua saude!" << endl;
     }
 
     return 0;
